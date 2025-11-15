@@ -15,12 +15,12 @@ export default function Header() {
         </Link>
         
         <div className="flex items-center gap-2 sm:gap-4">
-          <Link href="/auth">
+          <Link href="/register">
             <Button variant="ghost" className="text-foreground hover:text-accent">
               Sign In
             </Button>
           </Link>
-          <Link href="/auth">
+          <Link href="/login">
             <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
               Get Started
             </Button>

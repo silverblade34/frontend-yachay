@@ -1,14 +1,19 @@
-import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import type { Metadata } from 'next'
+import { Geist, Geist_Mono, Poppins } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const poppins = Poppins({ 
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-sans'
+})
 
 export const metadata: Metadata = {
   title: 'LearnFlow - Gamified Learning Platform',
-  description: 'Master any subject with engaging quizzes, AI-powered questions, and rewarding achievements',
+  description: 'Master skills through engaging, interactive quizzes with real-time progress tracking and community challenges.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -29,24 +34,14 @@ export const metadata: Metadata = {
   },
 }
 
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  userScalable: true,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#1f2937' },
-  ],
-}
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="dark font-sans antialiased">
+    <html lang="en" className="dark">
+      <body className={`${poppins.variable} font-sans antialiased`}>
         {children}
         <Analytics />
       </body>

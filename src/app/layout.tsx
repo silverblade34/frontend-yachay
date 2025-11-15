@@ -10,7 +10,7 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: 'LearnFlow - Gamified Learning Platform',
+  title: 'YachayFlow - Aprendizaje Personalizado',
   description: 'Master skills through engaging, interactive quizzes with real-time progress tracking and community challenges.',
   generator: 'v0.app',
   icons: {

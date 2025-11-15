@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import { Button } from '@/src/components/ui/button'
@@ -95,27 +94,20 @@ export default function LoginPage() {
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo - Usando imagen PNG */}
-        <div className="flex items-center justify-center gap-3 mb-8">
-          <div className="h-10 w-10 rounded-lg bg-accent flex items-center justify-center">
-            <Image
-              src="/logo-auth-yachay.png"
-              alt="YachayFlow Logo"
-              width={48}
-              height={48}
-              className="object-contain"
-              priority
-            />
+        <div className="flex items-center justify-center gap-2 mb-8">
+          <div className="w-10 h-10 bg-primary from-primary rounded-lg flex items-center justify-center">
+            <span className="text-accent-foreground font-bold">YF</span>
           </div>
           <span className="text-2xl font-bold text-foreground">YachayFlow</span>
         </div>
 
-        <Card className="border-border bg-card p-8">
-          <h1 className="text-2xl font-bold mb-2">Bienvenido de nuevo</h1>
-          <p className="text-muted-foreground mb-6">
+        <Card className="border-border border-2 bg-card p-8">
+          <h1 className="text-2xl font-bold">Bienvenido de nuevo</h1>
+          <p className="text-muted-foreground mb-2">
             Inicia sesión en tu cuenta para continuar aprendiendo.
           </p>
 
-          {/* Email/Password Form - PRIMERO */}
+          {/* Email/Password Form */}
           <form onSubmit={handleEmailLogin} className="space-y-4">
             <div>
               <Label htmlFor="email" className="text-sm font-medium mb-2 block">
@@ -167,7 +159,7 @@ export default function LoginPage() {
                 <input type="checkbox" className="rounded w-4 h-4 border-input" />
                 <span className="text-muted-foreground">Recuérdame</span>
               </label>
-              <Link href="#" className="text-accent hover:text-accent/90">
+              <Link href="#" className="text-primary hover:text-primary/90">
                 Has olvidado tu contraseña?
               </Link>
             </div>
@@ -175,7 +167,7 @@ export default function LoginPage() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-accent text-accent-foreground hover:opacity-90"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               {loading ? 'Iniciando...' : 'Iniciar sesión'}
             </Button>
@@ -201,7 +193,7 @@ export default function LoginPage() {
 
           <p className="text-center text-sm text-muted-foreground mt-6">
             No tengo una cuenta?{' '}
-            <Link href="/register" className="text-accent hover:text-accent/90 font-medium">
+            <Link href="/register" className="text-primary hover:text-primary/90 font-medium">
               Registrarse
             </Link>
           </p>

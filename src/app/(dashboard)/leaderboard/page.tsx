@@ -50,7 +50,7 @@ export default function LeaderboardPage() {
               <button
                 key={league.name}
                 onClick={() => setSelectedLeague(league.name)}
-                className={`relative overflow-hidden rounded-lg p-4 text-white font-semibold transition-all ${
+                className={`relative overflow-hidden rounded-lg p-4 text-accent-foreground font-semibold transition-all ${
                   selectedLeague === league.name ? 'ring-2 ring-white scale-105' : 'opacity-75 hover:opacity-100'
                 }`}
               >

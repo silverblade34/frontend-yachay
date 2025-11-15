@@ -2,15 +2,19 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/src/components/ui/button'
 import { Card } from '@/src/components/ui/card'
 import { Input } from '@/src/components/ui/input'
 import { Label } from '@/src/components/ui/label'
 import { Sparkles, Mail, Lock, Eye, EyeOff, ChevronRight } from 'lucide-react'
+import { GoogleButton } from '@/src/components/ui/google-button'
+import { useToast } from '@/src/hooks/use-toast'
 
 export default function RegisterPage() {
   const router = useRouter()
+  const { toast } = useToast()
   const [step, setStep] = useState(1)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -20,10 +24,11 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [termsAccepted, setTermsAccepted] = useState(false)
+  const [googleLoading, setGoogleLoading] = useState(false)
 
   const handleNextStep = () => {
     setError('')
-    
+
     if (step === 1) {
       if (!email || !password) {
         setError('Please fill in all fields')
@@ -47,6 +52,25 @@ export default function RegisterPage() {
     }
   }
 
+  const handleGoogleLogin = async () => {
+    setGoogleLoading(true)
+
+    try {
+      await signIn('google', {
+        callbackUrl: '/dashboard',
+        redirect: true,
+      })
+    } catch (err) {
+      console.error('Google login error:', err)
+      toast({
+        title: 'Error',
+        description: 'No se pudo iniciar sesión con Google.',
+        variant: 'destructive',
+      })
+      setGoogleLoading(false)
+    }
+  }
+
   const handleSubmit = async () => {
     setError('')
     setLoading(true)
@@ -67,21 +91,21 @@ export default function RegisterPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="h-10 w-10 rounded-lg bg-accent flex items-center justify-center">
-            <Sparkles className="h-6 w-6 text-accent-foreground" />
+          <div className="w-10 h-10 bg-primary from-primary rounded-lg flex items-center justify-center">
+            <span className="text-accent-foreground font-bold">YF</span>
           </div>
-          <span className="text-2xl font-bold text-foreground">LearnFlow</span>
+          <span className="text-2xl font-bold text-foreground">YachayFlow</span>
         </div>
 
         <Card className="border-border bg-card p-8">
           <div className="mb-8">
-            <h1 className="text-2xl font-bold mb-2">Create your account</h1>
-            <p className="text-muted-foreground text-sm">Step {step} of 2</p>
-            
+            <h1 className="text-2xl font-bold mb-2">Crea tu cuenta</h1>
+            <p className="text-muted-foreground text-sm">Paso {step} of 2</p>
+
             {/* Progress bar */}
             <div className="flex gap-2 mt-4">
-              <div className={`h-1 flex-1 rounded-full ${step >= 1 ? 'bg-accent' : 'bg-border'}`}></div>
-              <div className={`h-1 flex-1 rounded-full ${step >= 2 ? 'bg-accent' : 'bg-border'}`}></div>
+              <div className={`h-1 flex-1 rounded-full ${step >= 1 ? 'bg-primary' : 'bg-border'}`}></div>
+              <div className={`h-1 flex-1 rounded-full ${step >= 2 ? 'bg-primary' : 'bg-border'}`}></div>
             </div>
           </div>
 
@@ -94,7 +118,7 @@ export default function RegisterPage() {
           {step === 1 ? (
             <div className="space-y-4">
               <div>
-                <Label htmlFor="email" className="text-sm font-medium mb-2 block">Email</Label>
+                <Label htmlFor="email" className="text-sm font-medium mb-2 block">Correo</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-3 h-5 w-5 text-muted-foreground pointer-events-none" />
                   <Input
@@ -109,7 +133,7 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <Label htmlFor="password" className="text-sm font-medium mb-2 block">Password</Label>
+                <Label htmlFor="password" className="text-sm font-medium mb-2 block">Contraseña</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground pointer-events-none" />
                   <Input
@@ -128,13 +152,13 @@ export default function RegisterPage() {
                     {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
                 </div>
-                <p className="text-xs text-muted-foreground mt-1">At least 8 characters</p>
+                <p className="text-xs text-muted-foreground mt-1">Al menos 8 caracteres</p>
               </div>
             </div>
           ) : (
             <div className="space-y-4">
               <div>
-                <Label htmlFor="confirm-password" className="text-sm font-medium mb-2 block">Confirm Password</Label>
+                <Label htmlFor="confirm-password" className="text-sm font-medium mb-2 block">Confirmar contraseña</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground pointer-events-none" />
                   <Input
@@ -163,7 +187,7 @@ export default function RegisterPage() {
                   className="rounded w-4 h-4 border-input mt-1"
                 />
                 <span className="text-sm text-muted-foreground">
-                  I agree to the <a href="#" className="text-accent hover:text-accent/90">Terms of Service</a> and <a href="#" className="text-accent hover:text-accent/90">Privacy Policy</a>
+                  Acepto los <a href="#" className="text-primary hover:text-accent/90">Terminos y condiciones</a> y <a href="#" className="text-primary hover:text-accent/90">la política de privacidad.</a>
                 </span>
               </label>
             </div>
@@ -172,9 +196,9 @@ export default function RegisterPage() {
           <Button
             onClick={handleNextStep}
             disabled={loading}
-            className="w-full mt-6 bg-accent text-accent-foreground hover:opacity-90"
+            className="w-full mt-6 bg-primary text-accent-foreground hover:opacity-90"
           >
-            {loading ? 'Processing...' : step === 1 ? 'Continue' : 'Create Account'}
+            {loading ? 'Procesando...' : step === 1 ? 'Continuar' : 'Crear cuenta'}
             <ChevronRight className="ml-2 h-5 w-5" />
           </Button>
 
@@ -185,21 +209,24 @@ export default function RegisterPage() {
                   <div className="w-full border-t border-border"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="bg-card px-2 text-muted-foreground">Or sign up with</span>
+                  <span className="bg-card px-2 text-muted-foreground">O regístrate con</span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <Button variant="outline" className="border-border">Google</Button>
-                <Button variant="outline" className="border-border">Apple</Button>
+              <div>
+                <GoogleButton
+                  onClick={handleGoogleLogin}
+                  loading={googleLoading}
+                ></GoogleButton>
               </div>
+
             </>
           )}
 
           <p className="text-center text-sm text-muted-foreground mt-6">
-            Already have an account?{' '}
-            <Link href="/login" className="text-accent hover:text-accent/90 font-medium">
-              Sign in
+            Ya tienes una cuenta?{' '}
+            <Link href="/login" className="text-primary hover:text-accent/90 font-medium">
+              Iniciar sesión
             </Link>
           </p>
         </Card>

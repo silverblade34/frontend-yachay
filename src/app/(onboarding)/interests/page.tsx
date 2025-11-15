@@ -57,21 +57,21 @@ export default function InterestsOnboardingPage() {
           {/* Progress */}
           <div className="mb-8">
             <div className="flex gap-2 mb-4">
-              <div className="h-1.5 flex-1 rounded-full bg-accent"></div>
-              <div className="h-1.5 flex-1 rounded-full bg-accent"></div>
-              <div className="h-1.5 flex-1 rounded-full bg-accent"></div>
+              <div className="h-1.5 flex-1 rounded-full bg-primary"></div>
+              <div className="h-1.5 flex-1 rounded-full bg-primary"></div>
+              <div className="h-1.5 flex-1 rounded-full bg-primary"></div>
             </div>
-            <p className="text-sm text-muted-foreground">Step 3 of 3</p>
+            <p className="text-sm text-muted-foreground">Paso 3 de 3</p>
           </div>
 
-          <h1 className="text-3xl font-bold mb-2">What do you want to learn?</h1>
-          <p className="text-muted-foreground mb-6">Select topics that interest you (at least one)</p>
+          <h1 className="text-3xl font-bold mb-2">¿Qué quieres aprender?</h1>
+          <p className="text-muted-foreground mb-6">Selecciona temas que te interesen (al menos uno).</p>
 
           {/* Search */}
           <div className="relative mb-6">
             <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground pointer-events-none" />
             <Input
-              placeholder="Search interests..."
+              placeholder="Intereses de búsqueda..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10"
@@ -108,7 +108,7 @@ export default function InterestsOnboardingPage() {
               className="flex-1 border-border"
               onClick={() => router.back()}
             >
-              Back
+              Retroceder
             </Button>
             <Button
               onClick={handleStart}

@@ -41,7 +41,7 @@ export default function AvatarOnboardingPage() {
   }
 
   const handleSkip = () => {
-    router.push('/interests')
+    router.push('/setup-profile')
   }
 
   return (
@@ -51,15 +51,15 @@ export default function AvatarOnboardingPage() {
           {/* Progress */}
           <div className="mb-8">
             <div className="flex gap-2 mb-4">
-              <div className="h-1.5 flex-1 rounded-full bg-accent"></div>
-              <div className="h-1.5 flex-1 rounded-full bg-accent"></div>
+              <div className="h-1.5 flex-1 rounded-full bg-primary"></div>
+              <div className="h-1.5 flex-1 rounded-full bg-primary"></div>
               <div className="h-1.5 flex-1 rounded-full bg-border"></div>
             </div>
-            <p className="text-sm text-muted-foreground">Step 2 of 3</p>
+            <p className="text-sm text-muted-foreground">Paso 2 de 3</p>
           </div>
 
-          <h1 className="text-3xl font-bold mb-2">Choose your avatar</h1>
-          <p className="text-muted-foreground mb-8">Pick a character that represents you, or upload your own photo</p>
+          <h1 className="text-3xl font-bold mb-2">Elige tu avatar</h1>
+          <p className="text-muted-foreground mb-8">Elige un personaje que te represente o sube tu propia foto.</p>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
             {AVATARS.map((avatar) => (
@@ -94,14 +94,14 @@ export default function AvatarOnboardingPage() {
               className="flex-1 border-border"
               onClick={handleSkip}
             >
-              Skip
+              Retroceder
             </Button>
             <Button
               onClick={handleNext}
               disabled={loading || !selectedAvatar}
-              className="flex-1 bg-accent text-accent-foreground hover:opacity-90 disabled:opacity-50"
+              className="flex-1 bg-primary text-accent-foreground hover:opacity-90 disabled:opacity-50"
             >
-              {loading ? 'Saving...' : 'Continue'}
+              {loading ? 'Guardando...' : 'Continuar'}
               <ChevronRight className="ml-2 h-5 w-5" />
             </Button>
           </div>

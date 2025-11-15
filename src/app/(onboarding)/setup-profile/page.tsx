@@ -29,7 +29,7 @@ export default function ProfileOnboardingPage() {
     setError('')
     
     if (!formData.firstName || !formData.lastName || !formData.gender || !formData.academicLevel || !formData.birthDate) {
-      setError('Please fill in all fields')
+      setError('Por favor, rellene todos los campos.')
       return
     }
 
@@ -38,7 +38,7 @@ export default function ProfileOnboardingPage() {
       await new Promise(resolve => setTimeout(resolve, 600))
       router.push('/avatar')
     } catch (err) {
-      setError('Failed to save profile. Please try again.')
+      setError('No se pudo guardar el perfil. Inténtelo de nuevo.')
     } finally {
       setLoading(false)
     }
@@ -51,15 +51,15 @@ export default function ProfileOnboardingPage() {
           {/* Progress */}
           <div className="mb-8">
             <div className="flex gap-2 mb-4">
-              <div className="h-1.5 flex-1 rounded-full bg-accent"></div>
+              <div className="h-1.5 flex-1 rounded-full bg-primary"></div>
               <div className="h-1.5 flex-1 rounded-full bg-border"></div>
               <div className="h-1.5 flex-1 rounded-full bg-border"></div>
             </div>
-            <p className="text-sm text-muted-foreground">Step 1 of 3</p>
+            <p className="text-sm text-muted-foreground">Paso 1 de 3</p>
           </div>
 
-          <h1 className="text-3xl font-bold mb-2">Let's get to know you</h1>
-          <p className="text-muted-foreground mb-8">Tell us a bit about yourself so we can personalize your learning experience</p>
+          <h1 className="text-3xl font-bold mb-2">Vamos a conocerte</h1>
+          <p className="text-muted-foreground mb-8">Cuéntanos un poco sobre ti para que podamos personalizar tu experiencia de aprendizaje.</p>
 
           {error && (
             <div className="mb-4 p-3 bg-destructive/10 border border-destructive rounded-lg text-sm text-destructive">
@@ -70,7 +70,7 @@ export default function ProfileOnboardingPage() {
           <div className="space-y-5">
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="firstName" className="text-sm font-medium mb-2 block">First Name</Label>
+                <Label htmlFor="firstName" className="text-sm font-medium mb-2 block">Nombres</Label>
                 <Input
                   id="firstName"
                   name="firstName"
@@ -80,7 +80,7 @@ export default function ProfileOnboardingPage() {
                 />
               </div>
               <div>
-                <Label htmlFor="lastName" className="text-sm font-medium mb-2 block">Last Name</Label>
+                <Label htmlFor="lastName" className="text-sm font-medium mb-2 block">Apellidos</Label>
                 <Input
                   id="lastName"
                   name="lastName"
@@ -93,7 +93,7 @@ export default function ProfileOnboardingPage() {
 
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="gender" className="text-sm font-medium mb-2 block">Gender</Label>
+                <Label htmlFor="gender" className="text-sm font-medium mb-2 block">Género</Label>
                 <select
                   id="gender"
                   name="gender"
@@ -109,7 +109,7 @@ export default function ProfileOnboardingPage() {
                 </select>
               </div>
               <div>
-                <Label htmlFor="academicLevel" className="text-sm font-medium mb-2 block">Academic Level</Label>
+                <Label htmlFor="academicLevel" className="text-sm font-medium mb-2 block">Nivel academico</Label>
                 <select
                   id="academicLevel"
                   name="academicLevel"
@@ -129,7 +129,7 @@ export default function ProfileOnboardingPage() {
             </div>
 
             <div>
-              <Label htmlFor="birthDate" className="text-sm font-medium mb-2 block">Birth Date</Label>
+              <Label htmlFor="birthDate" className="text-sm font-medium mb-2 block">Cumpleaños</Label>
               <div className="relative">
                 <Calendar className="absolute left-3 top-3 h-5 w-5 text-muted-foreground pointer-events-none" />
                 <Input
@@ -145,19 +145,19 @@ export default function ProfileOnboardingPage() {
           </div>
 
           <div className="flex gap-3 mt-8">
-            <Button
+            {/* <Button
               variant="outline"
               className="flex-1"
               onClick={() => router.back()}
             >
-              Back
-            </Button>
+              Retroceder
+            </Button> */}
             <Button
               onClick={handleNext}
               disabled={loading}
-              className="flex-1 bg-accent text-accent-foreground hover:opacity-90"
+              className="flex-1 bg-primary text-accent-foreground hover:opacity-90"
             >
-              {loading ? 'Saving...' : 'Continue'}
+              {loading ? 'Guardando...' : 'Continuar'}
               <ChevronRight className="ml-2 h-5 w-5" />
             </Button>
           </div>

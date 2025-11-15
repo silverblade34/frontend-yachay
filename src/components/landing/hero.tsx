@@ -31,7 +31,7 @@ export default function Hero() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <Link href="/signup">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto">
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-accent-foreground w-full sm:w-auto">
               Start Learning Free
             </Button>
           </Link>

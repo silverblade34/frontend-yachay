@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">LF</span>
+                <span className="text-accent-foreground font-bold text-sm">LF</span>
               </div>
               <span className="font-bold">LearnFlow</span>
             </div>

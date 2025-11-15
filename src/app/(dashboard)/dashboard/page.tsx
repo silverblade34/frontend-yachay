@@ -1,11 +1,19 @@
 'use client'
 
 import Link from 'next/link'
-import { Button } from '@/src/components/ui/button'
+import { authOptions } from "@/src/lib/auth"
+import { redirect } from "next/navigation"
 import { Card } from '@/src/components/ui/card'
 import { Sparkles, Zap, Trophy, BookOpen, Plus, Flame } from 'lucide-react'
+import { getServerSession } from 'next-auth'
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const session = await getServerSession(authOptions)
+
+  if (!session) {
+    redirect('/login')
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -56,7 +64,7 @@ export default function DashboardPage() {
 
         {/* Main CTA */}
         <Link href="/create-test" className="block mb-12">
-          <Card className="p-8 bg-gradient-to-br from-accent/20 to-transparent border-accent/30 hover:border-accent/50 transition cursor-pointer">
+          <Card className="p-8 from-accent/20 to-transparent border-accent/30 hover:border-accent/50 transition cursor-pointer">
             <div className="flex items-center gap-4">
               <div className="h-12 w-12 rounded-lg bg-accent flex items-center justify-center">
                 <Plus className="h-6 w-6 text-accent-foreground" />

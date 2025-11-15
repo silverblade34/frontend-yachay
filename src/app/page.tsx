@@ -1,7 +1,5 @@
 'use client'
 
-import { Button } from '@/src/components/ui/button'
-import { Card } from '@/src/components/ui/card'
 import Header from '@/src/components/landing/header'
 import Hero from '@/src/components/landing/hero'
 import Features from '@/src/components/landing/features'

@@ -2,67 +2,125 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 import { Button } from '@/src/components/ui/button'
+import { GoogleButton } from '@/src/components/ui/google-button'
 import { Card } from '@/src/components/ui/card'
 import { Input } from '@/src/components/ui/input'
 import { Label } from '@/src/components/ui/label'
-import { Sparkles, Mail, Lock, Eye, EyeOff } from 'lucide-react'
+import { Mail, Lock, Eye, EyeOff } from 'lucide-react'
+import { useToast } from '@/src/hooks/use-toast'
 
 export default function LoginPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const { toast } = useToast()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [googleLoading, setGoogleLoading] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Obtener error de la URL si existe
+  const error = searchParams.get('error')
+
+  // Mostrar error si existe (useEffect correcto)
+  useState(() => {
+    if (error === 'OAuthAccountNotLinked') {
+      toast({
+        title: 'Error de autenticación',
+        description: 'Este email ya está registrado con otro método.',
+        variant: 'destructive',
+      })
+    } else if (error === 'AccessDenied') {
+      toast({
+        title: 'Acceso denegado',
+        description: 'No tienes permisos para acceder.',
+        variant: 'destructive',
+      })
+    } else if (error) {
+      toast({
+        title: 'Error',
+        description: 'Ocurrió un error al iniciar sesión.',
+        variant: 'destructive',
+      })
+    }
+  })
+
+  const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError('')
     setLoading(true)
 
     try {
-      // Simulate login - replace with actual auth
+      // TODO: Implementar login con email/password
       await new Promise(resolve => setTimeout(resolve, 800))
-      
+
       if (email && password) {
-        // Mock auth success
         router.push('/dashboard')
-      } else {
-        setError('Please fill in all fields')
       }
     } catch (err) {
-      setError('Login failed. Please try again.')
+      toast({
+        title: 'Error',
+        description: 'No se pudo iniciar sesión.',
+        variant: 'destructive',
+      })
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleGoogleLogin = async () => {
+    setGoogleLoading(true)
+
+    try {
+      await signIn('google', {
+        callbackUrl: '/dashboard',
+        redirect: true,
+      })
+    } catch (err) {
+      console.error('Google login error:', err)
+      toast({
+        title: 'Error',
+        description: 'No se pudo iniciar sesión con Google.',
+        variant: 'destructive',
+      })
+      setGoogleLoading(false)
     }
   }
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* Logo */}
-        <div className="flex items-center justify-center gap-2 mb-8">
+        {/* Logo - Usando imagen PNG */}
+        <div className="flex items-center justify-center gap-3 mb-8">
           <div className="h-10 w-10 rounded-lg bg-accent flex items-center justify-center">
-            <Sparkles className="h-6 w-6 text-accent-foreground" />
+            <Image
+              src="/logo-auth-yachay.png"
+              alt="YachayFlow Logo"
+              width={48}
+              height={48}
+              className="object-contain"
+              priority
+            />
           </div>
           <span className="text-2xl font-bold text-foreground">YachayFlow</span>
         </div>
 
         <Card className="border-border bg-card p-8">
           <h1 className="text-2xl font-bold mb-2">Bienvenido de nuevo</h1>
-          <p className="text-muted-foreground mb-6">Inicia sesión en tu cuenta para continuar aprendiendo.</p>
+          <p className="text-muted-foreground mb-6">
+            Inicia sesión en tu cuenta para continuar aprendiendo.
+          </p>
 
-          {error && (
-            <div className="mb-4 p-3 bg-destructive/10 border border-destructive rounded-lg text-sm text-destructive">
-              {error}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Email/Password Form - PRIMERO */}
+          <form onSubmit={handleEmailLogin} className="space-y-4">
             <div>
-              <Label htmlFor="email" className="text-sm font-medium mb-2 block">Correo</Label>
+              <Label htmlFor="email" className="text-sm font-medium mb-2 block">
+                Correo
+              </Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3 h-5 w-5 text-muted-foreground pointer-events-none" />
                 <Input
@@ -77,7 +135,9 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <Label htmlFor="password" className="text-sm font-medium mb-2 block">Contraseña</Label>
+              <Label htmlFor="password" className="text-sm font-medium mb-2 block">
+                Contraseña
+              </Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground pointer-events-none" />
                 <Input
@@ -93,7 +153,11 @@ export default function LoginPage() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
                 >
-                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5" />
+                  ) : (
+                    <Eye className="h-5 w-5" />
+                  )}
                 </button>
               </div>
             </div>
@@ -101,9 +165,11 @@ export default function LoginPage() {
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" className="rounded w-4 h-4 border-input" />
-                <span className="text-muted-foreground">Recuerdame</span>
+                <span className="text-muted-foreground">Recuérdame</span>
               </label>
-              <Link href="#" className="text-accent hover:text-accent/90">Has olvidado tu contraseña?</Link>
+              <Link href="#" className="text-accent hover:text-accent/90">
+                Has olvidado tu contraseña?
+              </Link>
             </div>
 
             <Button
@@ -115,6 +181,7 @@ export default function LoginPage() {
             </Button>
           </form>
 
+          {/* Divider */}
           <div className="my-6 relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-border"></div>
@@ -124,9 +191,12 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <Button variant="outline" className="border-border">Google</Button>
-            <Button variant="outline" className="border-border">Apple</Button>
+          {/* Social Login Buttons */}
+          <div>
+            <GoogleButton
+              onClick={handleGoogleLogin}
+              loading={googleLoading}
+            ></GoogleButton>
           </div>
 
           <p className="text-center text-sm text-muted-foreground mt-6">

@@ -47,12 +47,12 @@ export default function LoginPage() {
           <div className="h-10 w-10 rounded-lg bg-accent flex items-center justify-center">
             <Sparkles className="h-6 w-6 text-accent-foreground" />
           </div>
-          <span className="text-2xl font-bold text-foreground">LearnFlow</span>
+          <span className="text-2xl font-bold text-foreground">YachayFlow</span>
         </div>
 
         <Card className="border-border bg-card p-8">
-          <h1 className="text-2xl font-bold mb-2">Welcome back</h1>
-          <p className="text-muted-foreground mb-6">Sign in to your account to continue learning</p>
+          <h1 className="text-2xl font-bold mb-2">Bienvenido de nuevo</h1>
+          <p className="text-muted-foreground mb-6">Inicia sesión en tu cuenta para continuar aprendiendo.</p>
 
           {error && (
             <div className="mb-4 p-3 bg-destructive/10 border border-destructive rounded-lg text-sm text-destructive">
@@ -62,7 +62,7 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="email" className="text-sm font-medium mb-2 block">Email</Label>
+              <Label htmlFor="email" className="text-sm font-medium mb-2 block">Correo</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3 h-5 w-5 text-muted-foreground pointer-events-none" />
                 <Input
@@ -77,7 +77,7 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <Label htmlFor="password" className="text-sm font-medium mb-2 block">Password</Label>
+              <Label htmlFor="password" className="text-sm font-medium mb-2 block">Contraseña</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-3 h-5 w-5 text-muted-foreground pointer-events-none" />
                 <Input
@@ -101,9 +101,9 @@ export default function LoginPage() {
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" className="rounded w-4 h-4 border-input" />
-                <span className="text-muted-foreground">Remember me</span>
+                <span className="text-muted-foreground">Recuerdame</span>
               </label>
-              <Link href="#" className="text-accent hover:text-accent/90">Forgot password?</Link>
+              <Link href="#" className="text-accent hover:text-accent/90">Has olvidado tu contraseña?</Link>
             </div>
 
             <Button
@@ -111,7 +111,7 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full bg-accent text-accent-foreground hover:opacity-90"
             >
-              {loading ? 'Signing in...' : 'Sign In'}
+              {loading ? 'Iniciando...' : 'Iniciar sesión'}
             </Button>
           </form>
 
@@ -120,7 +120,7 @@ export default function LoginPage() {
               <div className="w-full border-t border-border"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+              <span className="bg-card px-2 text-muted-foreground">O continuar con</span>
             </div>
           </div>
 
@@ -130,9 +130,9 @@ export default function LoginPage() {
           </div>
 
           <p className="text-center text-sm text-muted-foreground mt-6">
-            Don't have an account?{' '}
+            No tengo una cuenta?{' '}
             <Link href="/register" className="text-accent hover:text-accent/90 font-medium">
-              Sign up
+              Registrarse
             </Link>
           </p>
         </Card>

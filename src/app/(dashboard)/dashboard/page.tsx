@@ -28,7 +28,7 @@ export default function DashboardPage() {
         <div className="mb-12">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <h1 className="text-4xl font-bold mb-2">Welcome back, Learner!</h1>
+              <h1 className="text-4xl font-bold mb-2">Bienvenido de nuevo, Aprendiz!</h1>
               <p className="text-muted-foreground">Your daily quest awaits</p>
             </div>
             <div className="flex items-center gap-2 bg-accent/20 px-4 py-2 rounded-lg">

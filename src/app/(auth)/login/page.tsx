@@ -11,6 +11,7 @@ import { Input } from '@/src/components/ui/input'
 import { Label } from '@/src/components/ui/label'
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react'
 import { useToast } from '@/src/hooks/use-toast'
+import Image from 'next/image' 
 
 export default function LoginPage() {
   const router = useRouter()
@@ -94,13 +95,17 @@ export default function LoginPage() {
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo - Usando imagen PNG */}
-        <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="w-10 h-10 bg-primary from-primary rounded-lg flex items-center justify-center">
-            <span className="text-accent-foreground font-bold">YF</span>
+        <Link href="/">
+          <div className="flex items-center justify-center gap-2 mb-8">
+            <span className="text-2xl font-bold text-foreground">YachayFlow</span>
+            <Image
+              src="/yachay-logo-frente.png"
+              alt="LearnFlow Logo"
+              width={40}
+              height={40}
+            />
           </div>
-          <span className="text-2xl font-bold text-foreground">YachayFlow</span>
-        </div>
-
+        </Link>
         <Card className="border-border border-2 bg-card p-8">
           <h1 className="text-2xl font-bold">Bienvenido de nuevo</h1>
           <p className="text-muted-foreground mb-2">

@@ -48,7 +48,7 @@ export default function Hero() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-          <Link href="/signup">
+          <Link href="/login">
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-accent-foreground w-full sm:w-auto group relative overflow-hidden">
               <span className="relative z-10">Comenzar Gratis</span>
               <div className="absolute inset-0 bg-gradient-to-r from-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

@@ -49,7 +49,7 @@ export default function CTA() {
         </p>
 
         <div className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-          <Link href="/signup">
+          <Link href="/login">
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg group relative overflow-hidden">
               <span className="relative z-10 flex items-center gap-2">
                 Comenzar Gratis

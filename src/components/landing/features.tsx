@@ -1,37 +1,38 @@
 'use client'
 
 import { Card } from '@/src/components/ui/card'
+import { Zap, Flame, Trophy, Medal, BarChart3, Pencil } from 'lucide-react'
 
 const features = [
   {
-    title: 'XP & Leveling System',
-    description: 'Earn experience points with every quiz completed and watch yourself level up as you progress.',
-    icon: '⚡',
+    title: 'Sistema de XP y Niveles',
+    description: 'Gana puntos de experiencia con cada cuestionario completado y sube de nivel mientras avanzas.',
+    icon: <Zap className="w-10 h-10 text-primary" />,
   },
   {
-    title: 'Streak Tracking',
-    description: 'Build consistent learning habits with streak counters that motivate daily engagement.',
-    icon: '🔥',
+    title: 'Rachas de Estudio',
+    description: 'Construye hábitos de aprendizaje constantes con contadores de racha que te motivan diariamente.',
+    icon: <Flame className="w-10 h-10 text-orange-500" />,
   },
   {
-    title: 'Leaderboards',
-    description: 'Compete with peers globally and see where you rank among thousands of learners.',
-    icon: '🏆',
+    title: 'Tablas de Clasificación',
+    description: 'Compite con otros estudiantes y mira en qué posición te encuentras a nivel global.',
+    icon: <Trophy className="w-10 h-10 text-yellow-500" />,
   },
   {
-    title: 'Achievements',
-    description: 'Unlock badges and achievements to celebrate milestones and showcase your accomplishments.',
-    icon: '🎖️',
+    title: 'Logros y Medallas',
+    description: 'Desbloquea insignias y logros para celebrar tus avances y destacar tus habilidades.',
+    icon: <Medal className="w-10 h-10 text-blue-500" />,
   },
   {
-    title: 'Progress Tracking',
-    description: 'Detailed analytics show your improvement over time with visual performance charts.',
-    icon: '📊',
+    title: 'Seguimiento de Progreso',
+    description: 'Analíticas detalladas muestran tu mejora a lo largo del tiempo mediante gráficos visuales.',
+    icon: <BarChart3 className="w-10 h-10 text-green-500" />,
   },
   {
-    title: 'Custom Quizzes',
-    description: 'Create and share your own quizzes with the community or keep them private.',
-    icon: '✏️',
+    title: 'Cuestionarios Personalizados',
+    description: 'Crea y comparte tus propios cuestionarios con la comunidad o mantenlos privados.',
+    icon: <Pencil className="w-10 h-10 text-purple-500" />,
   },
 ]
 
@@ -41,20 +42,23 @@ export default function Features() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Powerful Features for{' '}
+            Funciones Potentes para{' '}
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Better Learning
+              Un Mejor Aprendizaje
             </span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to learn faster, smarter, and more enjoyably.
+            Todo lo que necesitas para aprender más rápido, de forma más inteligente y con más motivación.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, i) => (
-            <Card key={i} className="bg-card/50 border border-border/50 backdrop-blur-sm p-6 hover:border-primary/50 transition-colors">
-              <div className="text-4xl mb-4">{feature.icon}</div>
+            <Card
+              key={i}
+              className="bg-card/50 border border-border/50 backdrop-blur-sm p-6 hover:border-primary/50 transition-colors"
+            >
+              <div className="mb-4">{feature.icon}</div>
               <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
               <p className="text-muted-foreground">{feature.description}</p>
             </Card>

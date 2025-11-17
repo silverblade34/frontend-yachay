@@ -34,7 +34,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! next/dist/build/webpack/loaders/next-flight-loader/module-proxy */ "(rsc)/./node_modules/.pnpm/next@14.2.18_react-dom@19.2.0_react@19.2.0__react@19.2.0/node_modules/next/dist/build/webpack/loaders/next-flight-loader/module-proxy.js");
 
 
-const e0 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`/Users/michellmarcospachecotacay/Documents/proyectos/Yachay/frontend-yachay/node_modules/.pnpm/@vercel+analytics@1.5.0_next@14.2.18_react-dom@19.2.0_react@19.2.0__react@19.2.0__react@19.2.0/node_modules/@vercel/analytics/dist/next/index.mjs#Analytics`);
+const e0 = (0,next_dist_build_webpack_loaders_next_flight_loader_module_proxy__WEBPACK_IMPORTED_MODULE_0__.createProxy)(String.raw`/Users/rafaelandresrosselgalarza/Documents/PERSONAL/FRONTEND/NEXT/frontend-yachay/node_modules/.pnpm/@vercel+analytics@1.5.0_next@14.2.18_react-dom@19.2.0_react@19.2.0__react@19.2.0__react@19.2.0/node_modules/@vercel/analytics/dist/next/index.mjs#Analytics`);
 
 
 /***/ })

@@ -7,7 +7,7 @@ const testimonials = [
   {
     name: 'Sarah Chen',
     role: 'Desarrolladora de Software',
-    content: 'LearnFlow hizo que aprender volviera a ser divertido. La gamificación me mantuvo motivada para terminar un curso completo.',
+    content: 'YachayFlow hizo que aprender volviera a ser divertido. La gamificación me mantuvo motivada para terminar un curso completo.',
     icon: <Laptop className="w-10 h-10 text-primary" />,
   },
   {
@@ -19,7 +19,7 @@ const testimonials = [
   {
     name: 'Elena Rodriguez',
     role: 'Docente',
-    content: 'Uso LearnFlow con mis estudiantes. El nivel de participación y finalización de actividades ha aumentado muchísimo.',
+    content: 'Uso YachayFlow con mis estudiantes. El nivel de participación y finalización de actividades ha aumentado muchísimo.',
     icon: <BookOpen className="w-10 h-10 text-green-500" />,
   },
 ]

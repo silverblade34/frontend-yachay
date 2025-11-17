@@ -11,18 +11,20 @@ import { Label } from '@/src/components/ui/label'
 import { Mail, Lock, Eye, EyeOff, ChevronRight } from 'lucide-react'
 import { GoogleButton } from '@/src/components/ui/google-button'
 import { useToast } from '@/src/hooks/use-toast'
-import Image from 'next/image' 
+import Image from 'next/image'
+import { useAuth } from '@/src/hooks/use-api'
 
 export default function RegisterPage() {
   const router = useRouter()
   const { toast } = useToast()
+  const { register, loading: authLoading, error: authError } = useAuth()
+  
   const [step, setStep] = useState(1)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [termsAccepted, setTermsAccepted] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
@@ -31,22 +33,33 @@ export default function RegisterPage() {
     setError('')
 
     if (step === 1) {
+      // Validación del paso 1
       if (!email || !password) {
-        setError('Please fill in all fields')
+        setError('Por favor, rellena todos los campos')
         return
       }
-      if (password.length < 8) {
-        setError('Password must be at least 8 characters')
+      
+      // Validación de email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(email)) {
+        setError('Por favor, introduce un email válido')
         return
       }
+      
+      if (password.length < 6) {
+        setError('La contraseña debe tener al menos 6 caracteres')
+        return
+      }
+      
       setStep(2)
     } else if (step === 2) {
+      // Validación del paso 2
       if (password !== confirmPassword) {
-        setError('Passwords do not match')
+        setError('Las contraseñas no coinciden')
         return
       }
       if (!termsAccepted) {
-        setError('Please accept the terms and conditions')
+        setError('Por favor, acepta los términos y condiciones')
         return
       }
       handleSubmit()
@@ -74,16 +87,27 @@ export default function RegisterPage() {
 
   const handleSubmit = async () => {
     setError('')
-    setLoading(true)
 
     try {
-      // Simulate registration - replace with actual auth
-      await new Promise(resolve => setTimeout(resolve, 800))
+      // Llamar a la API de registro
+      await register({ email, password })
+      
+      toast({
+        title: '¡Registro exitoso!',
+        description: 'Tu cuenta ha sido creada correctamente.',
+      })
+      
+      // Redirigir a configuración de perfil
       router.push('/setup-profile')
     } catch (err) {
-      setError('Registration failed. Please try again.')
-    } finally {
-      setLoading(false)
+      const errorMessage = err instanceof Error ? err.message : 'Error al registrar. Intenta de nuevo.'
+      setError(errorMessage)
+      
+      toast({
+        title: 'Error en el registro',
+        description: errorMessage,
+        variant: 'destructive',
+      })
     }
   }
 
@@ -96,16 +120,17 @@ export default function RegisterPage() {
             <span className="text-2xl font-bold text-foreground">YachayFlow</span>
             <Image
               src="/yachay-logo-frente.png"
-              alt="LearnFlow Logo"
+              alt="YachayFlow Logo"
               width={40}
               height={40}
             />
           </div>
         </Link>
+        
         <Card className="border-border bg-card p-8">
           <div className="mb-8">
             <h1 className="text-2xl font-bold mb-2">Crea tu cuenta</h1>
-            <p className="text-muted-foreground text-sm">Paso {step} of 2</p>
+            <p className="text-muted-foreground text-sm">Paso {step} de 2</p>
 
             {/* Progress bar */}
             <div className="flex gap-2 mt-4">
@@ -129,10 +154,11 @@ export default function RegisterPage() {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="you@example.com"
+                    placeholder="tu@ejemplo.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="pl-10"
+                    autoComplete="email"
                   />
                 </div>
               </div>
@@ -148,6 +174,7 @@ export default function RegisterPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="pl-10 pr-10"
+                    autoComplete="new-password"
                   />
                   <button
                     type="button"
@@ -157,7 +184,7 @@ export default function RegisterPage() {
                     {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
                 </div>
-                <p className="text-xs text-muted-foreground mt-1">Al menos 8 caracteres</p>
+                <p className="text-xs text-muted-foreground mt-1">Al menos 6 caracteres</p>
               </div>
             </div>
           ) : (
@@ -173,6 +200,7 @@ export default function RegisterPage() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     className="pl-10 pr-10"
+                    autoComplete="new-password"
                   />
                   <button
                     type="button"
@@ -192,7 +220,7 @@ export default function RegisterPage() {
                   className="rounded w-4 h-4 border-input mt-1"
                 />
                 <span className="text-sm text-muted-foreground">
-                  Acepto los <a href="#" className="text-primary hover:text-accent/90">Terminos y condiciones</a> y <a href="#" className="text-primary hover:text-accent/90">la política de privacidad.</a>
+                  Acepto los <a href="#" className="text-primary hover:text-accent/90">Términos y condiciones</a> y <a href="#" className="text-primary hover:text-accent/90">la política de privacidad.</a>
                 </span>
               </label>
             </div>
@@ -200,10 +228,10 @@ export default function RegisterPage() {
 
           <Button
             onClick={handleNextStep}
-            disabled={loading}
+            disabled={authLoading}
             className="w-full mt-6 bg-primary text-accent-foreground hover:opacity-90"
           >
-            {loading ? 'Procesando...' : step === 1 ? 'Continuar' : 'Crear cuenta'}
+            {authLoading ? 'Procesando...' : step === 1 ? 'Continuar' : 'Crear cuenta'}
             <ChevronRight className="ml-2 h-5 w-5" />
           </Button>
 
@@ -222,14 +250,13 @@ export default function RegisterPage() {
                 <GoogleButton
                   onClick={handleGoogleLogin}
                   loading={googleLoading}
-                ></GoogleButton>
+                />
               </div>
-
             </>
           )}
 
           <p className="text-center text-sm text-muted-foreground mt-6">
-            Ya tienes una cuenta?{' '}
+            ¿Ya tienes una cuenta?{' '}
             <Link href="/login" className="text-primary hover:text-accent/90 font-medium">
               Iniciar sesión
             </Link>

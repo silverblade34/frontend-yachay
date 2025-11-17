@@ -11,7 +11,7 @@ import { Input } from '@/src/components/ui/input'
 import { Label } from '@/src/components/ui/label'
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react'
 import { useToast } from '@/src/hooks/use-toast'
-import Image from 'next/image' 
+import Image from 'next/image'
 
 export default function LoginPage() {
   const router = useRouter()
